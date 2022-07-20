@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments :: page-head('User - Shopme Admin')" />
+<body>
+
+<div class="container-fruid">
+	<div th:replace="navigation :: menu"></div>
+	<div>
+		<h2>Manage Users</h2>
+		<a th:href="@{/users/new}" class="fas fa-user-plus fa-2x icon-dark mr-2"></a>
+		<a th:href="@{/users/export/csv}" class="fas fa-file-csv fa-2x icon-dark mr-2"></a>
+		<a th:href="@{/users/export/excel}" class="fas fa-file-excel fa-2x icon-dark mr-2"></a>
+		<a th:href="@{/users/export/pdf}" class="fas fa-file-pdf fa-2x icon-dark"></a>
+		
+		
+	</div>
+	
+	<div th:replace="fragments :: search_form_and_message('/users/page/1')"></div>
+	
+	<div class="full-details">
+		<table class="table table-bordered table-striped table-hover table-responsive-xl">
+			<thead class="thead-dark">
+				<tr>
+					
+					<th class="hideable-column">
+						<th th:replace="fragments :: column_link('id', 'User ID', 'tag')" />
+					</th> 
+					
+					<th>Photos</th>
+					<th class="hideable-column">
+						<th th:replace="fragments :: column_link('email', 'E-mail', 'tag')" />
+						
+					</th>
+					
+					<th>First Name
+					</th>
+					<th>Last Name</th>
+					<th>Roles</th>
+					<th>Enabled</th>
+					<th>Edit</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="user : ${listUsers}">
+					<td class="hideable-column">[[${user.id}]]</td>
+					
+					<td>
+					<span th:if="${user.photos == null}" class="fas fa-portrait fa-3x icon-silver"></span>
+					<img th:if="${user.photos != null}" th:src="@{${user.photosImagePath}}" />
+					
+				
+					</td>
+					
+					<td class="hideable-column">[[${user.email}]]</td>
+					<td>[[${user.firstName}]]</td>
+					<td>[[${user.lastName}]]</td>
+					<td>[[${user.roles}]]</td>
+					<td>
+						
+						<div th:replace="fragments :: status(${user.enabled}, 'user', '/users/'+ ${user.id})"></div>
+					
+					</td>
+					<td>
+						<div th:replace="fragments :: edit('user', '/users/edit/'+ ${user.id})"></div>
+						
+						<div th:replace="fragments :: delete('user', ${user.id},  '/users/delete/'+ ${user.id} , true)"></div>
+						
+					</td>
+					
+				</tr>
+			
+			
+			</tbody>
+		
+		</table>
+	
+	
+	</div>
+	
+	<div class="less-details">
+		<h2>Show user list on small screen</h2>
+		<div th:each="user : ${listUsers}" class="row m-1">
+			<div class="col-4">
+				
+				<div th:replace="fragments :: user_photos"></div>
+			
+			</div>
+			<div class="col-8">
+				<div>[[${user.fullName}]]</div>
+				<div>[[${user.roles}]]</div>
+				<div class="mt-2">
+					<div th:replace="fragments :: status(${user.enabled}, 'user', '/users/'+ ${user.id})"></div>
+					&nbsp;
+					<div th:replace="fragments :: user_action"></div>
+				</div>
+				
+			</div>
+			<div>&nbsp;</div>
+			
+		
+		</div>
+	
+	</div>
+	
+	
+	<!-- <div th:replace="fragments :: pagination('/users', 'user')"></div> -->
+	
+	
+	<div th:replace="fragments :: pagination_user('/users', 'User')"></div>
+	<div th:replace="fragments :: comfrim_model"></div>
+	
+	<div th:replace="fragments :: footer"></div>
+	
+</div>
+<script th:src="@{/js/common_list.js}"></script>
+<script type="text/javascript">
+
+	moduleURL = "[[@{/users}]]";
+
+	//alert("work");
+	var obj = {}
+	obj.market = "market";
+	
+	var SENDERDLTL = {};
+	SENDERDLTL.NAME = "Channa22";
+	
+	
+	
+	SENDERDLTL.DISPLAY = function(name) {
+		//alert("Hi! "+name);
+		console.log("Function sender Detail");
+	}
+	
+	SENDERDLTL.DISPLAY("channa"); 
+	
+	
+	
+	console.log("SENDERDLTL.NAME:",SENDERDLTL.NAME);
+	
+	
+	/*<![CDATA[*/
+	
+
+ 		/* var listUsers = /*[[${listUsers}]]*/ //[];
+		//for(var i=0;i<listUsers.length;i++){
+		//	console.log("listUsers" +i+ "= ",listUsers[i]);
+		//} */
+		
+		/*]]>*/
+	$(document).ready(function() {
+		
+		//clearFilter();
+		
+		$(".link-delete").on("click",function(e) {
+			e.preventDefault();
+			showDeleteComfirmModel($(this),'user');
+			/* link = $(this);
+			id = link.attr('userId');
+			$("#yesButton").attr("href", link.attr("href"));
+			//console.log("test",$("#yesButton").attr("href", link.attr("href")));
+			$("#comfirmText").text("Are you sure you want to delete this user ID "+id+" ?");
+			$("#comfirmModel").modal(); */
+		});
+		
+	});
+	/* clearFilter
+	function clearFilter() {
+		//alert("yess");
+		//window.location = "[[@{/users}]]";
+	} */
+		
+	
+	var eleBasic = "";
+	var eleNeutral = "";
+	var eleLocal = "";
+	var ele = "";
+	
+	/* $.ajax({
+		
+		type: "GET",
+		contentType: "application/json",
+		url: "/ShopmeAdmin/apiuser",
+		dataType: 'json',
+		cache: false,
+		success: function (data) {
+			ele = "";
+			
+			for(var i=0;i<data.length;i++){
+				
+				if(data[i].firstName=='Basic') {
+					eleBasic += data[i].firstName;
+					console.log("has basic");
+				} else if (data[i].firstName=='Neutral') {
+					eleNeutral += data[i].firstName + " ";
+					console.log("has Neutral");
+				}
+				console.log("data",data[i]);
+			}
+			
+			console.log("eleBasic=",eleBasic);
+			console.log("eleNeutral=",eleNeutral);
+			
+			
+			
+		}
+		
+		
+		
+	}); */
+	
+	var obj = {};
+	obj.door = "Open it";
+	obj.window = 15.65;
+	
+	console.log("obj.door=="+obj.door);
+	console.log("obj.window=="+obj.window);
+	
+	
+	//http://localhost:8080/ShopmeAdmin/apiuser
+	
+/* 	var eleBasic = "";
+	var eleNeutral = "";
+	var eleLocal = "";
+	var ele = "";
+	for() {
+		
+		ele = "";
+		if(Basic == AccountType )  eleBasic += ele;
+		else if(Neutral == AccountType ) eleNeutral += ele;
+		else if(Local == AccountType ) eleLocal += ele;
+	}
+	 */
+	
+
+
+
+</script>
+
+</body>
+</html>
