@@ -206,10 +206,8 @@ public class CategoryService {
 	}
 	
 	public String checkUnique(Integer id, String name, String alias) {
-		System.out.println("id=="+id);
 		boolean isCreatingNew  = (id == null || id == 0);
 		Category categoryByName = repo.findByName(name);
-		System.out.println("CategoryByName=="+categoryByName);
 		
 		if (isCreatingNew) {
 			if(categoryByName != null ) {

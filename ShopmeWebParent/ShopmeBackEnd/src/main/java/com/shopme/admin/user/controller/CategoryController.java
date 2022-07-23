@@ -87,16 +87,20 @@ public class CategoryController {
 	}
 	
 	@PostMapping("/categoies/save")
-	public String saveCategory(@RequestParam("fileImage") MultipartFile multipartFile
+	public String saveCategory(
+			@RequestParam("fileImage") MultipartFile multipartFile
 			,Category category
 			,RedirectAttributes ra) throws IOException {
+		
+		
+		System.out.println("Category====="+category);
 		
 		if(!multipartFile.isEmpty()) {
 			String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
 			category.setImage(fileName);
 			Category saveCategory = service.save(category);
-			System.out.println("saveCategory==="+saveCategory);
 			String uploadDir = "../category-photos/"+saveCategory.getId();
+			FileUploadUtil.clearDir(uploadDir);
 			FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
 		} else {
 			service.save(category);
@@ -117,7 +121,6 @@ public class CategoryController {
 			
 			Category category = service.get(id);
 			List<Category> listCategory = service.listCategoriesUseInForm();
-			System.out.println("listCategory edit work=="+category);
 			md.addAttribute("category", category);
 			md.addAttribute("listCategory", listCategory);
 			md.addAttribute("pageTitle", "Edit Category with id: "+ id);

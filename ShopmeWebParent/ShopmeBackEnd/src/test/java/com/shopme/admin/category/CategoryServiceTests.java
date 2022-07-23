@@ -1,8 +1,6 @@
 package com.shopme.admin.category;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -30,7 +28,6 @@ public class CategoryServiceTests {
 		String name = "ComputerABC";
 		String alias = "Computer";
 		
-		Category category = new Category(id, name, alias);
 		Mockito.when(repo.findByName(name)).thenReturn(null);
 		Mockito.when(repo.findByAlias(alias)).thenReturn(null);
 		
@@ -75,7 +72,6 @@ public class CategoryServiceTests {
 		String name = "Computer";
 		String alias = "Computer2";
 		
-		Category category = new Category(id, name, alias);
 		Mockito.when(repo.findByName(name)).thenReturn(null);
 		Mockito.when(repo.findByAlias(alias)).thenReturn(null);
 		
