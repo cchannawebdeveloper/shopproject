@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="fragments :: page-head('Brands - Shopme Admin')" />
+<head th:replace="fragments :: page-head('Brands - Shopme Admin', 'none')" />
 <body>
 <div class="container-fruid">
 	<div th:replace="navigation :: menu"></div>
@@ -18,7 +18,7 @@
 				<tr>
 					<th>Brand ID</th>
 					<th>Logo</th>
-					<th>Brand Name</th>
+					<th th:replace="fragments :: column_links('/brands', 'name', 'Brand Name', 'none')" />
 					<th>Categories</th>
 					<th>Edit</th>
 				
@@ -62,6 +62,29 @@
 			</tbody>
 		</table>
 	</div>
+	
+	<div class="less-details">
+		<h2>Show brands list on small screen</h2>
+		
+		<div th:each="brand : ${listBrands}" class="row m-2">
+		<div class="col-6">
+			<div th:replace="fragments :: photos(${brand.logo},${brand.logoPath})"></div>
+		</div>
+		
+		<div class="col-6">
+			<div><b>[[${brand.name}]]</b></div>
+			<div class="mt-2">
+				<div th:replace="fragments :: edit('brand', '/brands/edit/'+ ${brand.id})"></div>
+				&nbsp;
+				<div th:replace="fragments :: delete('brand', ${brand.id},  '/brands/delete/'+ ${brand.id} , true)"></div>
+			</div>
+		</div>
+		
+		
+	</div>
+	
+	
+	
 	
 	<div th:if="${keyword != null}" class="text-center"> 
 		<p>Search result does not show brands</p>

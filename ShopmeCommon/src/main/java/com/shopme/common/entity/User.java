@@ -49,11 +49,7 @@ public class User {
 			)
 	private Set<Role> roles = new HashSet<>();
 	
-	public User() {
-		// TODO Auto-generated constructor stub
-	}
-	
-	
+	public User() {}
 
 	public User(String firstName, String lastName, String email, String password) {
 		this.firstName = firstName;
@@ -61,8 +57,6 @@ public class User {
 		this.email = email;
 		this.password = password;
 	}
-
-
 
 	public Integer getId() {
 		return id;
@@ -155,8 +149,6 @@ public class User {
 		return builder.toString();
 	}
 
-
-
 	@Transient
 	public String getPhotosImagePath() {
 		if(id == null || photos == null ) return "/images/default-user.png";
@@ -169,10 +161,5 @@ public class User {
 	public String getFullName() {
 		return firstName + " " + lastName;
 	}
-	
-//	public void setFirstName(String firstName) {
-//		this.firstName = firstName;
-//	}
-//	
 	
 }

@@ -28,11 +28,7 @@ public class Role {
 	private String description;
 
 	
-	public Role() {
-		// TODO Auto-generated constructor stub
-	}
-	
-	
+	public Role() {}
 	
 	public Role(Integer id) {
 		super();

@@ -9,7 +9,6 @@ public class CategoryNotFoundException extends Exception {
 	
 	public CategoryNotFoundException(String messsage) {
 		super(messsage);
-		// TODO Auto-generated constructor stub
 	}
 
 }

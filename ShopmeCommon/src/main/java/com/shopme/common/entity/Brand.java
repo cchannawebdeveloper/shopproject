@@ -43,6 +43,14 @@ public class Brand {
 		this.name = name;
 		this.logo = "brand-logo.png";
 	}
+	
+	
+
+	public Brand(Integer id, String name) {
+		super();
+		this.id = id;
+		this.name = name;
+	}
 
 	public Brand(String name, String logo) {
 		super();
@@ -97,7 +105,7 @@ public class Brand {
 	
 	@Override
 	public String toString() {
-		return "Brand [id=" + id + ", name=" + name + ", logo=" + logo + ", categories=" + categories + "]";
+		return "Brand [id=" + id + ", name=" + name + ", categories=" + categories + "]";
 	}
 
 	@Transient

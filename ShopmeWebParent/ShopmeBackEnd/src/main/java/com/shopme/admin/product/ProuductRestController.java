@@ -1,4 +1,4 @@
-package com.shopme.admin.category;
+package com.shopme.admin.product;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
@@ -6,22 +6,18 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class CategoryRestController {
+public class ProuductRestController {
 	
 	@Autowired
-	private CategoryService service;
+	private ProductService productService;
 	
-	@PostMapping("/categories/check_uqiue")
+	
+	@PostMapping("/products/check_uqiue")
 	public String checkUniue(
 			@Param("id") Integer id
-			, @Param("name") String name
-			, @Param("alias") String alias
-			//, @RequestParam("key") String key)
-			 ) {
+			, @Param("name") String name) {
 		System.out.println("Categories API Work!!!");
-		return service.checkUnique(id, name, alias);
-		//return null;
-		
+		return productService.checkUnique(id, name);
 	}
 
 }

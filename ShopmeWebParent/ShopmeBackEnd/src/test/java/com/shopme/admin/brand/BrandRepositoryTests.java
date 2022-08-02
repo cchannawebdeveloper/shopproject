@@ -1,7 +1,6 @@
 package com.shopme.admin.brand;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.hamcrest.CoreMatchers.is;
 
 import java.util.Optional;
 
@@ -28,7 +27,6 @@ public class BrandRepositoryTests {
 	public void testCreateBrand() {
 		
 		Category laptops = new Category(6);
-		//System.out.println("laptops=="+laptops);
 		Brand acer = new Brand("Acer");
 		acer.getCategories().add(laptops);
 		
@@ -73,7 +71,7 @@ public class BrandRepositoryTests {
 		Iterable<Brand> list = repo.findAll();
 		
 		list.forEach(System.out::println);
-		assertThat(list).isNotNull();
+		assertThat(list).isNotEmpty();
 	}
 	
 	@Test

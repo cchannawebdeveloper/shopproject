@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 
-<head th:fragment="page-head(title)">
+<head th:fragment="page-head(title, remove)" th:remove=${remove}>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
 <title>[[${title}]]</title>
@@ -33,6 +33,20 @@
 			  th:class="${sortDir == 'asc' ? 'fas fa-sort-up' : 'fas fa-sort-down'}">
 		</span>
 	
+	
+	</th>
+	
+	<th th:fragment="column_links(entityURL, fieldName, columLabel, removeTag)" th:remove="${removeTag}">
+	
+	<a class="text-white 44"
+	     th:href="@{${entityURL} +'/page/' + ${currentPage} + '?sortField=' + ${fieldName} + '&sortDir='+ ${reverseSortDir } + ${keyword != null ? '&keyword=' + keyword  : '' }}"
+	     >
+	      [[${columLabel}]]
+	     </a>
+	     
+	     <span th:if="${sortField == fieldName}"
+			  th:class="${sortDir == 'asc' ? 'fas fa-sort-up' : 'fas fa-sort-down'}">
+		</span>
 	
 	</th>
 	
@@ -110,6 +124,12 @@
 	<div th:fragment="category_photos" th:remove="tag">
 		<span th:if="${cat.image == null}" class="fas fa-portrait fa-3x icon-silver"></span>
 		<img th:if="${cat.image != null}" th:src="@{${cat.imagePath}}" style="width: 100px;" class="img-fluid" />
+	</div>
+	
+	
+	<div th:fragment="photos(chkPhoto, photoPath)" th:remove="tag">
+		<span th:if="${chkPhoto == null}" class="fas fa-portrait fa-3x icon-silver"></span>
+		<img th:if="${chkPhoto != null}" th:src="@{${photoPath}}" style="width: 100px;" class="img-fluid" />
 	</div>
 	
 	

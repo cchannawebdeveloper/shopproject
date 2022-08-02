@@ -46,7 +46,6 @@ public class BrandController {
 			, @Param("sortDir") String sortDir
 			, @Param("keyword") String keyword
 			, Model md
-			
 			) {
 		
 		if( sortDir == null || sortDir.isEmpty()) {
@@ -56,8 +55,6 @@ public class BrandController {
 		Page<Brand> page = service.listByPage(pageNum, sortField, sortDir, keyword);
 		
 		List<Brand> listBrands = page.getContent();
-		
-		System.out.println("listBrands=="+listBrands);
 				
 		String reverseSortDir = sortDir.equals("asc") ? "desc" : "asc";
 		
@@ -141,7 +138,6 @@ public class BrandController {
 			
 		} catch (BrandNotFoundException e) {
 			e.printStackTrace();
-			///rda.addFlashAttribute("message", e.printStackTrace());
 			rda.addFlashAttribute("message",e.getMessage());
 		}
 		return "redirect:/brands";

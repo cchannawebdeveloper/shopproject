@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="fragments :: page-head(${pageTitle})" />
+<head th:replace="fragments :: page-head(${pageTitle}, 'none')" />
 <body>
 
 <div class="container-fruid">
@@ -116,6 +116,7 @@
 	
 </div>
 <script type="text/javascript">
+	MAX_FILE_SIZE = 102400; //100KB
 	moduleURL = "[[@{/users}]]";
 	moduleCheckMail = "[[@{/users/check_email}]]";
 	/* $(document).ready(function() {
